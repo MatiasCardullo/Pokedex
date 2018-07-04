@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1530733642 source:c:\users\matias\desktop\pokedex\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Pokedex.h"
+	"ArrayList.h"
+	"Parser.h"
+
+1530733642 c:\users\matias\desktop\pokedex\pokedex.h
+	"ArrayList.h"
+
+1530720473 c:\users\matias\desktop\pokedex\arraylist.h
+
+1530671400 c:\users\matias\desktop\pokedex\parser.h
+	"ArrayList.h"
+
+1530672689 source:c:\users\matias\desktop\pokedex\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"Pokedex.h"
+
+1530733358 source:c:\users\matias\desktop\pokedex\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Arraylist.h"
+
+1530732367 source:c:\users\matias\desktop\pokedex\pokedex.c
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	"ArrayList.h"
+	"Pokedex.h"
+
