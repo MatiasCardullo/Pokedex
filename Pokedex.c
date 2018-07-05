@@ -5,32 +5,55 @@
 #include "Pokedex.h"
 #define ESC 27
 
-char menuListas(){
+void menuListas(ArrayList*this){
     char seguir=0;
-    system("mode con cols=52 lines=11");
-    printf("____________________________________________________\n");
-    printf("  A-Listar todos los Pokemons\n");
-    printf("  B-Listar las Mega evoluciones\n\t(o evoluciones Primales)\n");
-    printf("  C-Listar Pokemons Legendarios\n");
-    printf("  D-Listar Pokemons segun generacion\n");
-    printf("____________________________________________________\n");
-    printf(">");
-    do{
-        fflush(stdin);
-        seguir=getch();
-    }while(seguir!=ESC&&!(seguir>='A'&&seguir<='D')&&!(seguir>='a'&&seguir<='d'));
-    return seguir;
+    while(seguir!=ESC){
+        system("mode con cols=52 lines=11");
+        printf("____________________________________________________\n");
+        printf("  A-Listar todas las evoluciones\n");
+        printf("  B-Listar las Mega evoluciones\n\t(o evoluciones Primales)\n");
+        printf("  C-Listar Pokemons Legendarios\n");
+        printf("  D-Listar Pokemons segun generacion\n");
+        printf("____________________________________________________\n");
+        printf(" >");
+        do{
+            fflush(stdin);
+            seguir=getch();
+        }while(seguir!=ESC&&!(seguir>='A'&&seguir<='D')&&!(seguir>='a'&&seguir<='d'));
+        char* topText1={"  # |\t\t\tNombre\t |  Tipo 1 | Tipo 2  |Total| HP |ATK|DEF|SP.ATK|SP.DEF|VEL|Generacion|Legendario\n"};
+        char* topText2={"  # |\t\t\tNombre\t |  Tipo 1 | Tipo 2  |Total| HP |ATK|DEF|SP.ATK|SP.DEF|VEL|Generacion\n"};
+        char* topText3={"  # |\t\t\tNombre\t |  Tipo 1 | Tipo 2  |Total| HP |ATK|DEF|SP.ATK|SP.DEF|VEL|Legendario\n"};
+        switch(seguir){
+            case 'A':case 'a':
+                system("mode con cols=120 lines=52");
+                this->mapTorF(this,mostrarPokemon,pkmn_getIndex,topText1);
+                break;
+            case 'B':case 'b':
+                system("mode con cols=120 lines=52");
+                this->mapTorF(this,mostrarPokemon,isMegaOrPrimal,topText1);
+                break;
+            case 'C':case 'c':
+                system("mode con cols=102 lines=52");
+                this->mapTorF(this,mostrarPokemonSinLegendario,isLegendary,topText2);
+                break;
+            case 'D':case 'd':
+                system("mode con cols=102 lines=52");
+                this->mapGroup(this,mostrarPokemonSinGeneracion,pkmn_getGeneration,"Generacion",topText3);
+                break;
+        }
+    }
 }
 
 Pokemon* pkmn_new(void){
     Pokemon* this = (Pokemon*) malloc(sizeof(Pokemon));
     return this;
 }
+
 void mostrarPokemon(Pokemon* this){
     printf(" %03d|",pkmn_getIdPokedex(this));
     printf("%28s|",pkmn_getName(this));
-    printf("%8s|",pkmn_getType1(this));
-    printf("%8s|",pkmn_getType2(this));
+    printf("%9s|",pkmn_getType1(this));
+    printf("%9s|",pkmn_getType2(this));
     printf(" %3d |",pkmn_getStatsTotal(this));
     printf("%3d |",pkmn_getHP(this));
     printf("%3d|",pkmn_getAttack(this));
@@ -38,15 +61,16 @@ void mostrarPokemon(Pokemon* this){
     printf(" %3d  |",pkmn_getSpAtk(this));
     printf(" %3d  |",pkmn_getSpDef(this));
     printf("%3d|",pkmn_getSpeed(this));
-    printf("     %d    |",pkmn_getGeneration(this));
-    printf("  %5s",pkmn_getLegendary(this));
+    isGeneration(this);
+    printf("|  %5s",pkmn_getLegendary(this));
     printf("\n");
 }
+
 void mostrarPokemonSinGeneracion(Pokemon* this){
     printf(" %03d|",pkmn_getIdPokedex(this));
     printf("%28s|",pkmn_getName(this));
-    printf("%8s|",pkmn_getType1(this));
-    printf("%8s|",pkmn_getType2(this));
+    printf("%9s|",pkmn_getType1(this));
+    printf("%9s|",pkmn_getType2(this));
     printf(" %3d |",pkmn_getStatsTotal(this));
     printf("%3d |",pkmn_getHP(this));
     printf("%3d|",pkmn_getAttack(this));
@@ -57,11 +81,12 @@ void mostrarPokemonSinGeneracion(Pokemon* this){
     printf("  %5s",pkmn_getLegendary(this));
     printf("\n");
 }
+
 void mostrarPokemonSinLegendario(Pokemon* this){
     printf(" %03d|",pkmn_getIdPokedex(this));
     printf("%28s|",pkmn_getName(this));
-    printf("%8s|",pkmn_getType1(this));
-    printf("%8s|",pkmn_getType2(this));
+    printf("%9s|",pkmn_getType1(this));
+    printf("%9s|",pkmn_getType2(this));
     printf(" %3d |",pkmn_getStatsTotal(this));
     printf("%3d |",pkmn_getHP(this));
     printf("%3d|",pkmn_getAttack(this));
@@ -69,7 +94,7 @@ void mostrarPokemonSinLegendario(Pokemon* this){
     printf(" %3d  |",pkmn_getSpAtk(this));
     printf(" %3d  |",pkmn_getSpDef(this));
     printf("%3d|",pkmn_getSpeed(this));
-    printf("     %d",pkmn_getGeneration(this));
+    isGeneration(this);
     printf("\n");
 }
 
@@ -134,7 +159,6 @@ void pkmn_setMegaOrPrimal(Pokemon* this, char* megaOrPrimal){
         strcpy(this->megaOrPrimal, megaOrPrimal);
 }
 
-
 int pkmn_getIndex(Pokemon* this){
     return this->index;
 }
@@ -187,17 +211,16 @@ int isLegendary(Pokemon* this){
 int isMegaOrPrimal(Pokemon* this){
     return strcmp("False",pkmn_getMegaOrPrimal(this));
 }
-char* isGeneration(Pokemon* this){
-    char aux[21]={""};
+int isGeneration(Pokemon* this){
     switch(this->generation){
-        case 1: sprintf(aux,"Primera");break;
-        case 2: sprintf(aux,"Segunda");break;
-        case 3: sprintf(aux,"Tercera");break;
-        case 4: sprintf(aux,"Cuarta");break;
-        case 5: sprintf(aux,"Quinta");break;
-        case 6: sprintf(aux,"Sexta");break;
-    }
-    return aux;
+        case 1: printf(" Primera  ");break;
+        case 2: printf(" Segunda  ");break;
+        case 3: printf(" Tercera  ");break;
+        case 4: printf("  Cuarta  ");break;
+        case 5: printf("  Quinta  ");break;
+        case 6: printf("  Sexta   ");break;
+        case 7: printf(" Septima  ");break;
+    }return this->generation;
 }
 
 

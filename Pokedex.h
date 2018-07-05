@@ -7,15 +7,15 @@ struct S_Pokemon
   int index,idPokedex;
   char name[50],type1[10],type2[10];
   int statsTotal,HP,attack,defense,spAtk,spDef,speed,generation;
-  char legendary[6],megaOrPrimal[6];
+  char legendary[6],megaOrPrimal[7];
 };
 typedef struct S_Pokemon Pokemon;
 
-char menuListas();
+void menuListas(ArrayList*);
 Pokemon* pkmn_new(void);
 int isLegendary(Pokemon*);
 int isMegaOrPrimal(Pokemon*);
-char* isGeneration(Pokemon*);
+int isGeneration(Pokemon*);
 void mostrarPokemon(Pokemon*);
 void mostrarPokemonSinGeneracion(Pokemon*);
 void mostrarPokemonSinLegendario(Pokemon*);

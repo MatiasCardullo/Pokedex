@@ -7,7 +7,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
 {
     char id[4], nombre[50], tipo1[10], tipo2[10], statsTotal[4];
     char HP[4], atk[4], def[4], atkEspecial[4], defEspecial[4], velocidad[4];
-    char generacion[2], legendario[6], mega_o_primal[6];
+    char generacion[2], legendario[6], mega_o_primal[7];
     int cant;
     int index=0;
     FILE* pFile;
@@ -49,7 +49,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
     return 1; // OK
 }
 
-int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons)
+/*int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons)
 {
     FILE* f;
     Pokemon* Pokemon = pkmn_new();
@@ -70,4 +70,4 @@ int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons)
             }listaPokemons->deleteArrayList(listaPokemons);
         }returnAux = 1;
     }return returnAux;
-}
+}*/
