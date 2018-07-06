@@ -37,8 +37,9 @@ struct ArrayList{
     void*   (*pop)();
     int     (*containsAll)();
     int     (*sort)();
-    void     (*mapTorF)();
-    void     (*mapGroup)();
+    int     (*map)();
+    int     (*mapBool)();
+    int     (*mapGroup)();
     struct ArrayList* (* clone)();
     struct ArrayList* (*subList)();
     int     (*deleteArrayList)();
@@ -206,9 +207,11 @@ int al_containsAll(ArrayList* this,ArrayList* this2);
  */
 int al_sort(ArrayList* this, int (*pFunc)(void* ,void*), int order);
 
-void al_map_TorF(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*);
+int al_map(ArrayList* this, void (*pFunc1)(void*));
 
-void al_map_group(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*,char*);
+int al_map_Bool(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*);
+
+int al_map_group(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*,char*);
 
 /** \brief Increment the number of elements in pList in AL_INCREMENT elements.
  * \param pList ArrayList* Pointer to arrayList

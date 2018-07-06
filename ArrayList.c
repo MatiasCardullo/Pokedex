@@ -50,7 +50,8 @@ ArrayList* al_newArrayList(void)
             this->containsAll=al_containsAll;
             this->deleteArrayList = al_deleteArrayList;
             this->sort = al_sort;
-            this->mapTorF = al_map_TorF;
+            this->map = al_map;
+            this->mapBool = al_map_Bool;
             this->mapGroup = al_map_group;
             returnAux = this;
         }
@@ -251,7 +252,7 @@ int al_clear(ArrayList* this)
 
 
 
-/* \brief Returns an array containing all of the elements in this list in proper sequence
+/** \brief Returns an array containing all of the elements in this list in proper sequence
  * \param pList ArrayList* Pointer to arrayList
  * \return ArrayList* Return  (NULL) if Error [pList is NULL pointer]
  *                          - (New array) if Ok
@@ -501,49 +502,69 @@ int al_sort(ArrayList* this, int (*pFunc)(void* ,void*), int order)
     return returnAux;
 }
 
-void al_map_TorF(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*topText)
+int al_map(ArrayList* this, void (*pFunc)(void*))
 {
-    int j=0;
-    for(int i=0; i<this->len(this); i++){
-        if(pFunc2(this->get(this,i))){
-            if(j==0){printf("%s",topText);}
+    int returnAux=-1;
+    if(this!=NULL&&pFunc!=NULL){
+        returnAux=0;
+        for(int i=0; i<this->len(this); i++)
+        {
+            pFunc(this->get(this,i));
+        }
+    }
+    return returnAux;
+}
+
+int al_map_Bool(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*topText)
+{
+    int j=0,returnAux=-1;
+    if(this!=NULL&&pFunc1!=NULL&&pFunc2!=NULL){
+        returnAux=0;
+        for(int i=0; i<this->len(this); i++){
+            if(pFunc2(this->get(this,i))){
+                if(j==0){printf("%s",topText);}
+                pFunc1(this->get(this,i));
+                j++;
+                if(j%50==0&&j!=0){
+                    fflush(stdin);
+                    system("pause");
+                    system("cls");
+                    printf("%s",topText);
+                }
+            }
+        }
+        if(j%50!=0){
+            fflush(stdin);
+            system("pause");
+        }
+    }return returnAux;
+}
+
+int al_map_group(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*string,char*topText)
+{
+    int returnAux=-1;
+    if(this!=NULL&&pFunc1!=NULL&&pFunc2!=NULL){
+        returnAux=0;
+        int aux=-1,j=-1;
+        for(int i=0; i<this->len(this); i++){
+            if(pFunc2(this->get(this,i))!=aux){
+                aux=pFunc2(this->get(this,i));
+                if(j!=-1){system("pause");}
+                j=1;
+                system("cls");
+                printf("\t%d%c %s:\n",aux,-8,string);
+            }
+            if(j==1){printf("%s",topText);}
             pFunc1(this->get(this,i));
             j++;
-            if(j%50==0&&j!=0){
+            if(j%50==0){
                 fflush(stdin);
                 system("pause");
                 system("cls");
                 printf("%s",topText);
-            }
-        }
-    }
-    if(j%50!=0){
-        fflush(stdin);
-        system("pause");
-    }
-}
-
-void al_map_group(ArrayList* this, void (*pFunc1)(void*),int (*pFunc2)(void*),char*string,char*topText)
-{
-    int aux=-1,j=-1;
-    for(int i=0; i<this->len(this); i++){
-        if(pFunc2(this->get(this,i))!=aux){
-            aux=pFunc2(this->get(this,i));
-            if(j!=-1){system("pause");}
-            j=1;
-            system("cls");
-            printf("\t%d%c %s:\n",aux,-8,string);
-        }
-        if(j==1){printf("%s",topText);}
-        pFunc1(this->get(this,i));
-        j++;
-        if(j%50==0){
-            fflush(stdin);
-            system("pause");
-            system("cls");
-            printf("%s",topText);
-        }fflush(stdin);
-    }system("pause");
+            }fflush(stdin);
+        }system("pause");
+    }return returnAux;
 }
 
 

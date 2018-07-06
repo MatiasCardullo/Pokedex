@@ -8,14 +8,13 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
     char id[4], nombre[50], tipo1[10], tipo2[10], statsTotal[4];
     char HP[4], atk[4], def[4], atkEspecial[4], defEspecial[4], velocidad[4];
     char generacion[2], legendario[6], mega_o_primal[7];
-    int cant;
-    int index=0;
+    int ok=1,cant,index=0;
     FILE* pFile;
     pFile= fopen(fileName, "r");
     if((pFile)==NULL){
         printf("No se pudo abrir el archivo.\n");
         system("pause");
-        exit(EXIT_FAILURE);
+        ok=0;
     }fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal);
     while(!feof(pFile)){
         cant=fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal);
@@ -25,7 +24,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
             else{
                 printf("Error.\n");
                 system("pause");
-                exit(EXIT_FAILURE);
+                ok=0;break;
             }
         }else{index++;}
         Pokemon* eAux=pkmn_new();
@@ -46,7 +45,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
         pkmn_setMegaOrPrimal(eAux,mega_o_primal);
         listaPokemons->add(listaPokemons,eAux);
     }fclose(pFile);
-    return 1; // OK
+    return ok; // OK
 }
 
 /*int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons)
