@@ -45,6 +45,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Pokedex.h" />
+		<Unit filename="SetGets.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SetGets.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

@@ -50,6 +50,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-.depend
-.layout
-.cscope_file_list
+*.depend
+*.layout
+*.cscope_file_list
