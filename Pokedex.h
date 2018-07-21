@@ -12,11 +12,13 @@ typedef struct S_Pokemon Pokemon;
 
 Pokemon* pkmn_new(void);
 
-void menuListas(ArrayList*);
+int menu();
 
-void menuTipos(ArrayList*);
+int menuListas(ArrayList*);
 
-void menuGeneracion(ArrayList*);
+int menuTipos(ArrayList*);
+
+int menuGeneracion(ArrayList*);
 
 int isGeneration(Pokemon*);
 
@@ -25,5 +27,15 @@ void mostrarPokemon(Pokemon*);
 void mostrarPokemonSinGeneracion(Pokemon*);
 
 void mostrarPokemonSinLegendario(Pokemon*);
+
+int addPokemon(ArrayList*);
+
+char* chooseType(char*);
+
+int chooseGeneration();
+
+char* chooseMega(char*);
+
+int indexOf(Pokemon*);
 
 #endif // Pokemon_H_INCLUDED

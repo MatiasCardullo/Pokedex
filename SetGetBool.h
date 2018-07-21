@@ -20,6 +20,9 @@ void pkmn_setLegendary(Pokemon*, char*);
 void pkmn_setMegaOrPrimal(Pokemon*, char*);
 
 //GETTERS
+int getPositiveNumber();
+char* getString(int,char*);
+char* getTrueOrFalse(char*);
 int pkmn_getIndex(Pokemon*);
 int pkmn_getIdPokedex(Pokemon*);
 char* pkmn_getName(Pokemon*);
@@ -37,6 +40,7 @@ char* pkmn_getLegendary(Pokemon*);
 char* pkmn_getMegaOrPrimal(Pokemon*);
 
 //BOOLEAN
+int trueOrFalse();
 int isLegendary(Pokemon*);
 int isMegaOrPrimal(Pokemon*);
 int isGeneration1(Pokemon*);

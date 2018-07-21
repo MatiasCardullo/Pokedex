@@ -3,7 +3,7 @@
 #include "ArrayList.h"
 
 int parser_pokedex(char* fileName, ArrayList* listaPokemons);
-int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons);
+int crear_pokedex(char* fileName,ArrayList* listaPokemons);
 
 
 #endif // PARSER_H_INCLUDED

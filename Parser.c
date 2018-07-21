@@ -48,7 +48,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
     return ok; // OK
 }
 
-/*int generarArchivoSueldos(char* fileName,ArrayList* listaPokemons)
+int crear_pokedex(char* fileName,ArrayList* listaPokemons)
 {
     FILE* f;
     Pokemon* Pokemon = pkmn_new();
@@ -58,10 +58,10 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
     if(listaPokemons != NULL){
         f = fopen(fileName, "w");
         if(f != NULL){
-            fprintf(f,"id,nombre,horas_trabajadas,sueldo\n");
+            fprintf(f,"Id,Name,Type 1,Type 2,statsTotal,HP,attack,defense,spAtk,spDef,Speed,Generation,Legendary,Mega or primal\n");
             for(i=0; i<listaPokemons->len(listaPokemons); i++){
                 Pokemon = listaPokemons->get(listaPokemons,i);
-                //fprintf(f,"%d,%s,%d,%.2f\n",pkmn_getId(Pokemon),pkmn_getName(Pokemon),pkmn_getHorasTrabajadas(Pokemon),pkmn_getSueldo(Pokemon));
+                fprintf(f,"%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%s\n",pkmn_getIdPokedex(Pokemon),pkmn_getName(Pokemon),pkmn_getType1(Pokemon),pkmn_getType2(Pokemon),pkmn_getStatsTotal(Pokemon),pkmn_getHP(Pokemon),pkmn_getAttack(Pokemon),pkmn_getDefense(Pokemon),pkmn_getSpAtk(Pokemon),pkmn_getSpDef(Pokemon),pkmn_getSpeed(Pokemon),pkmn_getGeneration(Pokemon),pkmn_getLegendary(Pokemon),pkmn_getMegaOrPrimal(Pokemon));
             }fclose(f);
             for(i=0;i<listaPokemons->len(listaPokemons);i++){
                   Pokemon = listaPokemons->get(listaPokemons,i);
@@ -69,4 +69,4 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
             }listaPokemons->deleteArrayList(listaPokemons);
         }returnAux = 1;
     }return returnAux;
-}*/
+}

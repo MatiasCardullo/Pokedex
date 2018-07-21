@@ -12,8 +12,64 @@ Pokemon* pkmn_new(void){
     return this;
 }
 
-void menuListas(ArrayList*this){
-    char seguir=0;
+int menu(){
+    int seguir=0;
+        system("mode con cols=52 lines=11");
+        printf("____________________________________________________\n");
+        printf("  1-Alta Pokemon\n");
+        printf("  2-Modificar Pokemon\n");
+        printf("  3-Baja Pokemon\n");
+        printf("  4-Listar Pokemons\n");
+        printf("____________________________________________________\n");
+        printf(" >");
+        do{
+            fflush(stdin);
+            seguir=getch();
+        }while(seguir!=ESC&&!(seguir>='1'&&seguir<='4'));
+    return seguir;
+}
+
+int addPokemon(ArrayList*this){
+    Pokemon* eAux=pkmn_new();
+    char* aux;
+    aux=(char*)malloc(sizeof(char)*50);
+    printf("\n  Ingrese ID de la Pokedex: ");
+    pkmn_setIdPokedex(eAux,getPositiveNumber());
+    //this->indexOf(this,)
+    printf("\n  Ingrese nombre: ");
+    pkmn_setName(eAux,getString(50,aux));
+    printf("\n  Que tipo es: ");
+    pkmn_setType1(eAux,chooseType(aux));
+    printf("\n  Tiene otro tipo? ");
+    if(trueOrFalse()){
+        printf("\n  Que tipo es: ");
+        pkmn_setType2(eAux,chooseType(aux));
+    }else{
+        pkmn_setType2(eAux," ");
+    }
+    printf("\n  Ingrese puntos de vida(HP): ");
+    pkmn_setHP(eAux,getPositiveNumber());
+    printf("\n  Ingrese puntos de ataque: ");
+    pkmn_setAttack(eAux,getPositiveNumber());
+    printf("\n  Ingrese puntos de defensa: ");
+    pkmn_setDefense(eAux,getPositiveNumber());
+    printf("\n  Ingrese puntos de ataque especial: ");
+    pkmn_setSpAtk(eAux,getPositiveNumber());
+    printf("\n  Ingrese puntos de defensa especial: ");
+    pkmn_setSpDef(eAux,getPositiveNumber());
+    printf("\n  Ingrese puntos de velocidad: ");
+    pkmn_setSpeed(eAux,getPositiveNumber());
+    pkmn_setStatsTotal(eAux,(pkmn_getHP(eAux)+pkmn_getAttack(eAux)+pkmn_getDefense(eAux)+pkmn_getSpAtk(eAux)+pkmn_getSpDef(eAux)+pkmn_getSpeed(eAux)));
+    printf("\n  Que generacion es?: ");
+    pkmn_setGeneration(eAux,chooseGeneration());
+    printf("\n  Es legendario?: ");
+    pkmn_setLegendary(eAux,getTrueOrFalse(aux));
+    //pkmn_setMegaOrPrimal(eAux,mega_o_primal);
+    this->add(this,eAux);
+}
+
+int menuListas(ArrayList*this){
+    int seguir=0;
     while(seguir!=ESC){
         system("mode con cols=52 lines=11");
         printf("____________________________________________________\n");
@@ -50,11 +106,11 @@ void menuListas(ArrayList*this){
                 menuGeneracion(this);
                 break;
         }
-    }
+    }return seguir;
 }
 
-void menuTipos(ArrayList*this){
-    char seguir=0;
+int menuTipos(ArrayList*this){
+    int seguir=0;
     while(seguir!=ESC){
         system("mode con cols=52 lines=25");
         printf("____________________________________________________\n");
@@ -141,11 +197,11 @@ void menuTipos(ArrayList*this){
                 this->mapBool(this,mostrarPokemon,tipoVolador,topText);
                 break;
         }
-    }
+    }return seguir;
 }
 
-void menuGeneracion(ArrayList*this){
-    char seguir=0;
+int menuGeneracion(ArrayList*this){
+    int seguir=0;
     while(seguir!=ESC){
         system("mode con cols=52 lines=15");
         printf("____________________________________________________\n");
@@ -165,7 +221,7 @@ void menuGeneracion(ArrayList*this){
         }while(seguir!=ESC&&!(seguir>='1'&&seguir<='8'));
         char* topText={"  # |\t\tNombre\t\t |  Tipo 1 | Tipo 2  |Total| HP |ATK|DEF|SP.ATK|SP.DEF|VEL|Legendario\n"};
         if(seguir!=ESC)
-            {system("mode con cols=120 lines=52");}
+            {system("mode con cols=102 lines=52");}
         switch(seguir){
             case '1':
                 this->mapBool(this,mostrarPokemonSinGeneracion,isGeneration1,topText);
@@ -192,7 +248,7 @@ void menuGeneracion(ArrayList*this){
                 this->mapGroup(this,mostrarPokemonSinGeneracion,pkmn_getGeneration,"Generacion",topText);
                 break;
         }
-    }
+    }return seguir;
 }
 
 int isGeneration(Pokemon* this){
@@ -256,5 +312,101 @@ void mostrarPokemonSinLegendario(Pokemon* this){
     printf("\n");
 }
 
+char* chooseType(char* output){
+    printf("\n A-Tipo Acero");
+    printf("\n B-Tipo Agua");
+    printf("\n C-Tipo Bicho");
+    printf("\n D-Tipo Dragon");
+    printf("\n E-Tipo Electrico");
+    printf("\n F-Tipo Fantasma");
+    printf("\n G-Tipo Fuego");
+    printf("\n H-Tipo Hada");
+    printf("\n I-Tipo Hielo");
+    printf("\n J-Tipo Lucha");
+    printf("\n K-Tipo Normal");
+    printf("\n L-Tipo Planta");
+    printf("\n M-Tipo Psiquico");
+    printf("\n N-Tipo Roca");
+    printf("\n O-Tipo Siniestro");
+    printf("\n P-Tipo Tierra");
+    printf("\n Q-Tipo Veneno");
+    printf("\n R-Tipo Volador\n");
+    int opcion;
+    int seguir=1;
+    while(seguir){
+        seguir=0;
+        fflush(stdin);
+        opcion=getch();
+        switch(opcion){
+            case 'A':   case 'a':
+                strcpy(output,"Acero");
+                break;
+            case 'B':   case 'b':
+                strcpy(output,"Agua");
+                break;
+            case 'C':   case 'c':
+                strcpy(output,"Bicho");
+                break;
+            case 'D':   case 'd':
+                strcpy(output,"Dragon");
+                break;
+            case 'E':   case 'e':
+                strcpy(output,"Electrico");
+                break;
+            case 'F':   case 'f':
+                strcpy(output,"Fantasma");
+                break;
+            case 'G':   case 'g':
+                strcpy(output,"Fuego");
+                break;
+            case 'H':   case 'h':
+                strcpy(output,"Hada");
+                break;
+            case 'I':   case 'i':
+                strcpy(output,"Hielo");
+                break;
+            case 'J':   case 'j':
+                strcpy(output,"Lucha");
+                break;
+            case 'K':   case 'k':
+                strcpy(output,"Normal");
+                break;
+            case 'L':   case 'l':
+                strcpy(output,"Planta");
+                break;
+            case 'M':   case 'm':
+                strcpy(output,"Psiquico");
+                break;
+            case 'N':   case 'n':
+                strcpy(output,"Roca");
+                break;
+            case 'O':   case 'o':
+                strcpy(output,"Siniestro");
+                break;
+            case 'P':   case 'p':
+                strcpy(output,"Tierra");
+                break;
+            case 'Q':   case 'q':
+                strcpy(output,"Veneno");
+                break;
+            case 'R':   case 'r':
+                strcpy(output,"Volador");
+                break;
+            default:
+                printf("%c",7);
+                seguir=1;
+        }
+    }return output;
+}
 
+int chooseGeneration(){
+    int number;
+    while(1){
+        number=getPositiveNumber();
+        if(number>7)
+            {printf("%c",7);}
+        else
+            {break;}
+    }return number;
+}
 

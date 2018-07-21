@@ -6,63 +6,94 @@
 
 void pkmn_setIndex(Pokemon* this, int index){
     if(index > 0)
-        this->index = index;
+        {this->index = index;}
 }
 void pkmn_setIdPokedex(Pokemon* this, int idPokedex){
     if(idPokedex > 0)
-        this->idPokedex = idPokedex;
+        {this->idPokedex = idPokedex;}
 }
 void pkmn_setName(Pokemon* this, char* name){
     if(strlen(name)<50)
-        strcpy(this->name, name);
+        {strcpy(this->name, name);}
 }
 void pkmn_setType1(Pokemon* this, char* type1){
     if(strlen(type1)<10)
-        strcpy(this->type1, type1);
+        {strcpy(this->type1, type1);}
 }
 void pkmn_setType2(Pokemon* this, char* type2){
     if(strlen(type2)<10)
-        strcpy(this->type2, type2);
+        {strcpy(this->type2, type2);}
 }
 void pkmn_setStatsTotal(Pokemon* this, int statsTotal){
     if(statsTotal > 0)
-        this->statsTotal=statsTotal;
+        {this->statsTotal=statsTotal;}
 }
 void pkmn_setHP(Pokemon* this, int HP){
     if(HP > 0)
-        this->HP=HP;
+        {this->HP=HP;}
 }
 void pkmn_setAttack(Pokemon* this, int attack){
     if(attack > 0)
-        this->attack=attack;
+        {this->attack=attack;}
 }
 void pkmn_setDefense(Pokemon* this, int defense){
     if(defense > 0)
-        this->defense=defense;
+        {this->defense=defense;}
 }
 void pkmn_setSpAtk(Pokemon* this, int spAtk){
     if(spAtk > 0)
-        this->spAtk=spAtk;
+        {this->spAtk=spAtk;}
 }
 void pkmn_setSpDef(Pokemon* this, int spDef){
     if(spDef > 0)
-        this->spDef=spDef;
+        {this->spDef=spDef;}
 }
 void pkmn_setSpeed(Pokemon* this, int speed){
     if(speed > 0)
-        this->speed=speed;
+        {this->speed=speed;}
 }
 void pkmn_setGeneration(Pokemon* this, int generation){
     if(generation > 0)
-        this->generation=generation;
+        {this->generation=generation;}
 }
 void pkmn_setLegendary(Pokemon* this, char* legendary){
     if(strcmp(legendary,"True")||strcmp(legendary,"False"))
-        strcpy(this->legendary, legendary);
+        {strcpy(this->legendary, legendary);}
 }
 void pkmn_setMegaOrPrimal(Pokemon* this, char* megaOrPrimal){
-    if(strcmp(megaOrPrimal,"True")||strcmp(megaOrPrimal,"False"))
-        strcpy(this->megaOrPrimal, megaOrPrimal);
+    if(strcmp(megaOrPrimal,"Mega")||strcmp(megaOrPrimal,"Primal")||strcmp(megaOrPrimal,"False"))
+        {strcpy(this->megaOrPrimal, megaOrPrimal);}
+}
+
+int getPositiveNumber(){
+    char* aux;
+    aux=(char *)malloc(sizeof(char)*20);
+    int number=NULL;
+    while(1){
+        fflush(stdin);
+        gets(aux);
+        number=atoi(aux);
+        if(number>0)
+            {free(aux);break;}
+        else
+            {printf("%c",7);}
+    }return number;
+}
+char* getString(int large,char* aux){
+    while(1){
+        gets(aux);
+        if(large>strlen(aux))
+            {break;}
+        else
+            {printf("%c",7);}
+    }return aux;
+}
+char* getTrueOrFalse(char* output){
+    if(trueOrFalse())
+        {strcpy(output,"True");}
+    else
+        {strcpy(output,"False");}
+    return output;
 }
 
 int pkmn_getIndex(Pokemon* this){
@@ -111,6 +142,19 @@ char* pkmn_getMegaOrPrimal(Pokemon* this){
     return this->megaOrPrimal;
 }
 
+int trueOrFalse(){
+    int aux;
+    while(1){
+        aux=getch();
+        if(aux=='T'||aux=='t'||aux=='V'||aux=='v'||aux=='S'||aux=='s')
+            {aux=1;break;}
+        else if(aux=='F'||aux=='f'||aux=='N'||aux=='n')
+            {aux=0;break;}
+        else
+            {printf("%c",7);}
+    }
+    return aux;
+}
 int isLegendary(Pokemon* this){
     return strcmp("False",pkmn_getLegendary(this));
 }
