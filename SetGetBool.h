@@ -1,9 +1,8 @@
 #ifndef SetGetBool_H_INCLUDED
 #define SetGetBool_H_INCLUDED
-#include "ArrayList.h"
+#include "Pokedex.h"
 
 //SETTERS
-void pkmn_setIndex(Pokemon*, int);
 void pkmn_setIdPokedex(Pokemon*, int);
 void pkmn_setName(Pokemon*, char*);
 void pkmn_setType1(Pokemon*, char*);
@@ -18,12 +17,12 @@ void pkmn_setSpeed(Pokemon*, int);
 void pkmn_setGeneration(Pokemon*, int);
 void pkmn_setLegendary(Pokemon*, char*);
 void pkmn_setMegaOrPrimal(Pokemon*, char*);
+void pkmn_setAlola(Pokemon*,char*);
 
 //GETTERS
-int getPositiveNumber();
+int getPositiveNumber(int);
 char* getString(int,char*);
 char* getTrueOrFalse(char*);
-int pkmn_getIndex(Pokemon*);
 int pkmn_getIdPokedex(Pokemon*);
 char* pkmn_getName(Pokemon*);
 char* pkmn_getType1(Pokemon*);
@@ -38,11 +37,13 @@ int pkmn_getSpeed(Pokemon*);
 int pkmn_getGeneration(Pokemon*);
 char* pkmn_getLegendary(Pokemon*);
 char* pkmn_getMegaOrPrimal(Pokemon*);
+char* pkmn_getAlola(Pokemon*);
 
 //BOOLEAN
 int trueOrFalse();
 int isLegendary(Pokemon*);
 int isMegaOrPrimal(Pokemon*);
+int isAlola(Pokemon*);
 int isGeneration1(Pokemon*);
 int isGeneration2(Pokemon*);
 int isGeneration3(Pokemon*);

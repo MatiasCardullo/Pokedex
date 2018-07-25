@@ -6,7 +6,6 @@
 #define ESC 27
 
 int main(){
-    system("color 0a");
     ArrayList* auxPokedex1 = al_newArrayList();
     if(parser_pokedex("pokedex.csv",auxPokedex1)){
         ArrayList* auxPokedex2 = al_newArrayList();
@@ -24,16 +23,17 @@ int main(){
                 case '4':
                     menuListas(auxPokedex2);
                     break;
+                case '5':
+                    searchPokemon(auxPokedex2);
+                    break;
                 case ESC:
                     seguir=ESC;
             }
         }
         if(auxPokedex2->containsAll(auxPokedex1,auxPokedex2)){
-            //printf("lo mismo");
             auxPokedex1->deleteArrayList(auxPokedex1);
             auxPokedex2->deleteArrayList(auxPokedex2);
         }else{
-            //printf("diferente");
             crear_pokedex("prueba.csv",auxPokedex2);
             auxPokedex1->deleteArrayList(auxPokedex1);
         }

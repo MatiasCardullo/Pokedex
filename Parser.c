@@ -5,20 +5,20 @@
 
 int parser_pokedex(char* fileName, ArrayList* listaPokemons)
 {
-    char id[4], nombre[50], tipo1[10], tipo2[10], statsTotal[4];
+    char id[4], nombre[50], tipo1[10], tipo2[10], statsTotal[5];
     char HP[4], atk[4], def[4], atkEspecial[4], defEspecial[4], velocidad[4];
-    char generacion[2], legendario[6], mega_o_primal[7];
-    int ok=1,cant,index=0;
+    char generacion[2], legendario[6], mega_o_primal[7], alola[6];
+    int ok=1,cant;
     FILE* pFile;
     pFile= fopen(fileName, "r");
     if((pFile)==NULL){
         printf("No se pudo abrir el archivo.\n");
         system("pause");
         ok=0;
-    }fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal);
+    }fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal,alola);
     while(!feof(pFile)){
-        cant=fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal);
-        if(cant!=14){
+        cant=fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id,nombre,tipo1,tipo2,statsTotal,HP,atk,def,atkEspecial,defEspecial,velocidad,generacion,legendario,mega_o_primal,alola);
+        if(cant!=15){
             if(feof(pFile))
                 {break;}
             else{
@@ -26,9 +26,8 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
                 system("pause");
                 ok=0;break;
             }
-        }else{index++;}
+        }
         Pokemon* eAux=pkmn_new();
-        pkmn_setIndex(eAux,index);
         pkmn_setIdPokedex(eAux,atoi(id));
         pkmn_setName(eAux,nombre);
         pkmn_setType1(eAux,tipo1);
@@ -43,6 +42,7 @@ int parser_pokedex(char* fileName, ArrayList* listaPokemons)
         pkmn_setGeneration(eAux,atoi(generacion));
         pkmn_setLegendary(eAux,legendario);
         pkmn_setMegaOrPrimal(eAux,mega_o_primal);
+        pkmn_setAlola(eAux,alola);
         listaPokemons->add(listaPokemons,eAux);
     }fclose(pFile);
     return ok; // OK
@@ -52,21 +52,19 @@ int crear_pokedex(char* fileName,ArrayList* listaPokemons)
 {
     FILE* f;
     Pokemon* Pokemon = pkmn_new();
-    char estado[50];
     int returnAux = 0;
     int i;
     if(listaPokemons != NULL){
         f = fopen(fileName, "w");
         if(f != NULL){
-            fprintf(f,"Id,Name,Type 1,Type 2,statsTotal,HP,attack,defense,spAtk,spDef,Speed,Generation,Legendary,Mega or primal\n");
+            fprintf(f,"Id,Name,Type 1,Type 2,statsTotal,HP,attack,defense,spAtk,spDef,Speed,Generation,Legendary,Mega or primal,Alola\n");
             for(i=0; i<listaPokemons->len(listaPokemons); i++){
                 Pokemon = listaPokemons->get(listaPokemons,i);
-                fprintf(f,"%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%s\n",pkmn_getIdPokedex(Pokemon),pkmn_getName(Pokemon),pkmn_getType1(Pokemon),pkmn_getType2(Pokemon),pkmn_getStatsTotal(Pokemon),pkmn_getHP(Pokemon),pkmn_getAttack(Pokemon),pkmn_getDefense(Pokemon),pkmn_getSpAtk(Pokemon),pkmn_getSpDef(Pokemon),pkmn_getSpeed(Pokemon),pkmn_getGeneration(Pokemon),pkmn_getLegendary(Pokemon),pkmn_getMegaOrPrimal(Pokemon));
+                fprintf(f,"%d,%s,%s,%s,%d,%d,%d,%d,%d,%d,%d,%d,%s,%s,%s\n",pkmn_getIdPokedex(Pokemon),pkmn_getName(Pokemon),pkmn_getType1(Pokemon),pkmn_getType2(Pokemon),pkmn_getStatsTotal(Pokemon),pkmn_getHP(Pokemon),pkmn_getAttack(Pokemon),pkmn_getDefense(Pokemon),pkmn_getSpAtk(Pokemon),pkmn_getSpDef(Pokemon),pkmn_getSpeed(Pokemon),pkmn_getGeneration(Pokemon),pkmn_getLegendary(Pokemon),pkmn_getMegaOrPrimal(Pokemon),pkmn_getAlola(Pokemon));
             }fclose(f);
-            for(i=0;i<listaPokemons->len(listaPokemons);i++){
-                  Pokemon = listaPokemons->get(listaPokemons,i);
-                  free(Pokemon);
-            }listaPokemons->deleteArrayList(listaPokemons);
+
         }returnAux = 1;
-    }return returnAux;
+    listaPokemons->deleteArrayList(listaPokemons);
+    }free(Pokemon);
+    return returnAux;
 }

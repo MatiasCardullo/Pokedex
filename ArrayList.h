@@ -32,6 +32,7 @@ struct ArrayList{
     int     (*clear)();
     int     (*push)();
     int     (*indexOf)();
+    int     (*indexInt)();
     int     (*isEmpty)();
     void*   (*get)();
     void*   (*pop)();
@@ -157,6 +158,7 @@ int al_push(ArrayList* this, int index, void* pElement);
  */
 int al_indexOf(ArrayList* this, void* pElement);
 
+int al_indexInt(ArrayList* this,int (*pFunc)(void*),int compare,int start,int end);
 
 
 /** \brief Returns true if this list contains no elements.

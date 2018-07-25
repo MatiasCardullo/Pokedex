@@ -44,6 +44,7 @@ ArrayList* al_newArrayList(void)
             this->contains=al_contains;
             this->push=al_push;
             this->indexOf=al_indexOf;
+            this->indexInt=al_indexInt;
             this->isEmpty=al_isEmpty;
             this->pop=al_pop;
             this->subList=al_subList;
@@ -291,7 +292,6 @@ ArrayList* al_clone(ArrayList* this)
 int al_push(ArrayList* this, int index, void* pElement)
 {
     int returnAux = -1;
-
     if(this != NULL && pElement != NULL){
         if(index >= 0 && index <= this->len(this)){
             if(this->len(this)==index)
@@ -305,7 +305,6 @@ int al_push(ArrayList* this, int index, void* pElement)
         returnAux = 0;
         }
     }
-
     return returnAux;
 }
 
@@ -333,6 +332,19 @@ int al_indexOf(ArrayList* this, void* pElement)
         }
     }
     return returnAux;
+}
+
+int al_indexInt(ArrayList* this,int (*pFunc)(void*),int compare,int start,int end)
+{
+    int returnAux=-2;
+    if(this!=NULL&&pFunc!=NULL&&compare!=NULL&&start<end){
+        returnAux=-1;
+        for(int i=start; i<end; i++){
+            if(compare==pFunc(this->get(this,i))){
+                returnAux=i;break;
+            }
+        }
+    }return returnAux;
 }
 
 
@@ -577,7 +589,6 @@ int resizeUp(ArrayList* this)
 {
     int returnAux = -1;
     void** aux;
-
     if(this != NULL)
     {
         aux = (void**) realloc(this->pElements, sizeof(void*)* (this->reservedSize + AL_INCREMENT));
@@ -613,28 +624,21 @@ int resizeDown(ArrayList* this)
  * \return int Return (-1) if Error [pList is NULL pointer or invalid index]
  *                  - ( 0) if Ok
  */
-int expand(ArrayList* this,int index)
-{
+int expand(ArrayList* this,int index){
     int returnAux = -1;
-    int i;
-
-    if(this != NULL){
-        if(index >=0 && index<this->len(this)){
-
-            this->size++;
-
-            for(i=index; i<this->len(this); i++){
-                this->set(this, i+1, this->get(this, i));
-            }
-
-            returnAux = 0;
+    if( this != NULL ){
+        returnAux = 0;
+        this->size++;
+        if( this->len(this) == this->reservedSize  ){
+            returnAux=resizeUp(this);
         }
-        if(this->len(this)==this->reservedSize)
-        {
-            resizeUp(this);
+        if( !returnAux ){
+            int i;
+            for( i = this->len(this) ; i > index  ; i--){
+                this->set(this,i,this->get(this,i-1));
+            }
         }
     }
-
     return returnAux;
 }
 

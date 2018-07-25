@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ArrayList.h"
+#include "SetGetBool.h"
 #include "Pokedex.h"
 
 void pkmn_setIndex(Pokemon* this, int index){
@@ -64,29 +64,33 @@ void pkmn_setMegaOrPrimal(Pokemon* this, char* megaOrPrimal){
     if(strcmp(megaOrPrimal,"Mega")||strcmp(megaOrPrimal,"Primal")||strcmp(megaOrPrimal,"False"))
         {strcpy(this->megaOrPrimal, megaOrPrimal);}
 }
+void pkmn_setAlola(Pokemon* this, char* alola){
+    if(strcmp(alola,"True")||strcmp(alola,"False"))
+        {strcpy(this->alola, alola);}
+}
 
-int getPositiveNumber(){
+int getPositiveNumber(int limit){
     char* aux;
-    aux=(char *)malloc(sizeof(char)*20);
+    int digits,cont=limit;
+    for(digits=1;cont>0;digits++)
+        {cont=cont/10;}
+    aux=(char *)malloc(sizeof(char)*(digits));
     int number=NULL;
     while(1){
-        fflush(stdin);
-        gets(aux);
+        getString(digits,aux);
         number=atoi(aux);
-        if(number>0)
+        if(number>0&&number<limit)
             {free(aux);break;}
         else
             {printf("%c",7);}
     }return number;
 }
 char* getString(int large,char* aux){
-    while(1){
-        gets(aux);
-        if(large>strlen(aux))
-            {break;}
-        else
-            {printf("%c",7);}
-    }return aux;
+    fflush(stdin);
+    fgets(aux,large,stdin);
+      if (aux[strlen(aux)-1] == '\n')
+      {aux[strlen(aux)-1] = '\0';}
+    return aux;
 }
 char* getTrueOrFalse(char* output){
     if(trueOrFalse())
@@ -141,6 +145,9 @@ char* pkmn_getLegendary(Pokemon* this){
 char* pkmn_getMegaOrPrimal(Pokemon* this){
     return this->megaOrPrimal;
 }
+char* pkmn_getAlola(Pokemon* this){
+    return this->alola;
+}
 
 int trueOrFalse(){
     int aux;
@@ -160,6 +167,9 @@ int isLegendary(Pokemon* this){
 }
 int isMegaOrPrimal(Pokemon* this){
     return strcmp("False",pkmn_getMegaOrPrimal(this));
+}
+int isAlola(Pokemon* this){
+    return strcmp("False",pkmn_getAlola(this));
 }
 int isGeneration1(Pokemon* this){
     int isXGeneration=0;
