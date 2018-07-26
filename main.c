@@ -7,6 +7,8 @@
 
 int main(){
     ArrayList* auxPokedex1 = al_newArrayList();
+    /*ArrayList* auxPokedex3 = al_newArrayList();
+    parser_pokedex("xdkpe2o.csv",auxPokedex3);*/
     if(parser_pokedex("pokedex.csv",auxPokedex1)){
         ArrayList* auxPokedex2 = al_newArrayList();
         auxPokedex2 = al_clone(auxPokedex1);

@@ -1,13 +1,54 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 #include "SetGetBool.h"
 #include "Pokedex.h"
 
-void pkmn_setIndex(Pokemon* this, int index){
-    if(index > 0)
-        {this->index = index;}
+int getPositiveNumber(int limit){
+    char* aux;
+    int digits,cont=limit;
+    for(digits=1;cont>0;digits++)
+        {cont=cont/10;}
+    aux=(char *)malloc(sizeof(char)*(digits));
+    int number=NULL;
+    while(1){
+        getString(digits,aux);
+        number=atoi(aux);
+        if(number>0&&number<limit)
+            {free(aux);break;}
+        else
+            {printf("%c",7);}
+    }return number;
 }
+char* getString(int large,char* aux){
+    fflush(stdin);
+    fgets(aux,large,stdin);
+      if (aux[strlen(aux)-1] == '\n')
+      {aux[strlen(aux)-1] = '\0';}
+    return aux;
+}
+char* getTrueOrFalse(char* output){
+    if(trueOrFalse())
+        {strcpy(output,"True");}
+    else
+        {strcpy(output,"False");}
+    return output;
+}
+int trueOrFalse(){
+    int aux;
+    while(1){
+        aux=getch();
+        if(aux=='T'||aux=='t'||aux=='V'||aux=='v'||aux=='S'||aux=='s')
+            {aux=1;break;}
+        else if(aux=='F'||aux=='f'||aux=='N'||aux=='n')
+            {aux=0;break;}
+        else
+            {printf("%c",7);}
+    }
+    return aux;
+}
+
 void pkmn_setIdPokedex(Pokemon* this, int idPokedex){
     if(idPokedex > 0)
         {this->idPokedex = idPokedex;}
@@ -69,40 +110,6 @@ void pkmn_setAlola(Pokemon* this, char* alola){
         {strcpy(this->alola, alola);}
 }
 
-int getPositiveNumber(int limit){
-    char* aux;
-    int digits,cont=limit;
-    for(digits=1;cont>0;digits++)
-        {cont=cont/10;}
-    aux=(char *)malloc(sizeof(char)*(digits));
-    int number=NULL;
-    while(1){
-        getString(digits,aux);
-        number=atoi(aux);
-        if(number>0&&number<limit)
-            {free(aux);break;}
-        else
-            {printf("%c",7);}
-    }return number;
-}
-char* getString(int large,char* aux){
-    fflush(stdin);
-    fgets(aux,large,stdin);
-      if (aux[strlen(aux)-1] == '\n')
-      {aux[strlen(aux)-1] = '\0';}
-    return aux;
-}
-char* getTrueOrFalse(char* output){
-    if(trueOrFalse())
-        {strcpy(output,"True");}
-    else
-        {strcpy(output,"False");}
-    return output;
-}
-
-int pkmn_getIndex(Pokemon* this){
-    return this->index;
-}
 int pkmn_getIdPokedex(Pokemon* this){
     return this->idPokedex;
 }
@@ -149,19 +156,6 @@ char* pkmn_getAlola(Pokemon* this){
     return this->alola;
 }
 
-int trueOrFalse(){
-    int aux;
-    while(1){
-        aux=getch();
-        if(aux=='T'||aux=='t'||aux=='V'||aux=='v'||aux=='S'||aux=='s')
-            {aux=1;break;}
-        else if(aux=='F'||aux=='f'||aux=='N'||aux=='n')
-            {aux=0;break;}
-        else
-            {printf("%c",7);}
-    }
-    return aux;
-}
 int isLegendary(Pokemon* this){
     return strcmp("False",pkmn_getLegendary(this));
 }

@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "ArrayList.h"
 #include "Pokedex.h"
+#include "SetGetBool.h"
 
 int parser_pokedex(char* fileName, ArrayList* listaPokemons)
 {
     char id[4], nombre[50], tipo1[10], tipo2[10], statsTotal[5];
     char HP[4], atk[4], def[4], atkEspecial[4], defEspecial[4], velocidad[4];
     char generacion[2], legendario[6], mega_o_primal[7], alola[6];
+    char huevo1[10], huevo2[10],altura[2], peso[6], habitat[7];
     int ok=1,cant;
     FILE* pFile;
     pFile= fopen(fileName, "r");

@@ -401,7 +401,7 @@ int searchPokemon(ArrayList* this){
     Pokemon* eAux=pkmn_new();
     printf("\n\n Buscar: ");
     getString(50,aux);
-    if(atoi(aux)>0){
+    if(atoi(aux)>=0){
         for(int i=0;i<this->len(this);i++){
             eAux=this->get(this,i);
             if(pkmn_getIdPokedex(eAux)==atoi(aux)){

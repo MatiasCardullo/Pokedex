@@ -20,6 +20,7 @@ int menuGeneracion(ArrayList*);
 int addPokemon(ArrayList*);
 //int modifyPokemon(ArrayList*);
 //int removePokemon(ArrayList*);
+int searchPokemon(ArrayList*);
 
 int isGeneration(Pokemon*);
 void listStats(Pokemon*);
@@ -31,10 +32,7 @@ void listBiologicPokemon(Pokemon*);
 void listBiologicPokemonSinGeneracion(Pokemon*);
 void listBiologicPokemonSinLegendario(Pokemon*);
 
-int searchPokemon(ArrayList*);
-
 char* chooseType(char*);
-
 int chooseGeneration();
 
 #endif // Pokemon_H_INCLUDED

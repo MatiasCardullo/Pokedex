@@ -2,6 +2,14 @@
 #define SetGetBool_H_INCLUDED
 #include "Pokedex.h"
 
+
+///GENERIC FUNCTIONS
+int getPositiveNumber(int);
+char* getString(int,char*);
+int trueOrFalse();
+char* getTrueOrFalse(char*);
+
+///POKEDEX FUNCTIONS
 //SETTERS
 void pkmn_setIdPokedex(Pokemon*, int);
 void pkmn_setName(Pokemon*, char*);
@@ -20,9 +28,6 @@ void pkmn_setMegaOrPrimal(Pokemon*, char*);
 void pkmn_setAlola(Pokemon*,char*);
 
 //GETTERS
-int getPositiveNumber(int);
-char* getString(int,char*);
-char* getTrueOrFalse(char*);
 int pkmn_getIdPokedex(Pokemon*);
 char* pkmn_getName(Pokemon*);
 char* pkmn_getType1(Pokemon*);
@@ -40,7 +45,6 @@ char* pkmn_getMegaOrPrimal(Pokemon*);
 char* pkmn_getAlola(Pokemon*);
 
 //BOOLEAN
-int trueOrFalse();
 int isLegendary(Pokemon*);
 int isMegaOrPrimal(Pokemon*);
 int isAlola(Pokemon*);
